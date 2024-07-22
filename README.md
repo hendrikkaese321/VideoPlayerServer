@@ -1,1 +1,1 @@
-# VideoPlayerServer
+A VideoPlayerServer designed to serve as the backbone for a video management platform. It leverages Express for server setup and Mongoose for MongoDB interactions. Highlights include JSON parsing middleware, video management routes, and database connectivity. Perfect for developers looking to build or extend a video streaming service.
