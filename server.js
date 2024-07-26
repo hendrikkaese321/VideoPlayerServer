@@ -6,52 +6,52 @@ const app = express();
 
 app.use(express.json());
 
-function logMessage(message) {
-  console.log(`[${new Date().toISOString()}]: ${message}`);
+function logServerMessage(message) {
+    console.log(`[${new Date().toISOString()}]: ${message}`);
 }
 
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
-.then(() => logMessage('MongoDB Connected'))
-.catch(err => logMessage(`MongoDB Connection Error: ${err}`));
+.then(() => logServerMessage('MongoDB Connected'))
+.catch(err => logServerMessage(`MongoDB Connection Error: ${err}`));
 
 const videoSchema = new mongoose.Schema({
-  title: String,
-  url: String,
-  description: String,
+    title: String,
+    url: String,
+    description: String,
 });
 
-const Video = mongoose.model('Video', videoSchema);
+const VideoModel = mongoose.model('Video', videoSchema);
 
 app.get('/videos', async (req, res) => {
-  try {
-    const videos = await Video.find();
-    logMessage('Fetching all videos');
-    res.json(videos);
-  } catch (err) {
-    logMessage(`Error fetching videos: ${err}`);
-    res.status(500).send('Error fetching videos');
-  }
+    try {
+        const videos = await VideoModel.find();
+        logServerMessage('Fetching all videos');
+        res.json(videos);
+    } catch (err) {
+        logServerMessage(`Error fetching videos: ${err}`);
+        res.status(500).send('Error fetching videos');
+    }
 });
 
 app.post('/videos', async (req, res) => {
-  try {
-    const newVideo = new Video(req.body);
-    await newVideo.save();
-    logMessage('Adding new video');
-    res.status(201).send('Video added');
-  } catch (err) {
-    logMessage(`Error adding new video: ${err}`);
-    res.status(500).send('Error adding video');
-  }
+    try {
+        const newVideo = new VideoModel(req.body);
+        await newVideo.save();
+        logServerMessage('Adding new video');
+        res.status(201).send('Video added');
+    } catch (err) {
+        logServerMessage(`Error adding new video: ${err}`);
+        res.status(500).send('Error adding video');
+    }
 });
 
-app.use((err, req, res, next) => {
-  logMessage(`Express error: ${err.stack}`);
-  res.status(500).send('Something broke!');
+app.use((expressError, req, res, next) => {
+    logServerMessage(`Express error: ${expressError.stack}`);
+    res.status(500).send('Server encountered an internal error');
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => { logMessage(`Server is running on port ${PORT}`); });
+app.listen(PORT, () => { logServerMessage(`Server is running on port ${PORT}`); });
