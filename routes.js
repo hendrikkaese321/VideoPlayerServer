@@ -2,14 +2,24 @@ const express = require('express');
 const router = express.Router();
 const videoController = require('./videoController');
 
-router.post('/upload', videoController.uploadVideo);
+const asyncHandler = fn => 
+  (req, res, next) => 
+    Promise.resolve(fn(req, res, next))
+           .catch(next);
 
-router.put('/update/:id', videoController.updateVideo);
+router.post('/upload', asyncHandler(videoController.uploadVideo));
 
-router.delete('/delete/:id', videoController.deleteVideo);
+router.put('/update/:id', asyncHandler(videoController.updateVideo));
 
-router.get('/videos', videoController.getAllVideos);
+router.delete('/delete/:id', asyncHandler(videoController.deleteVideo));
 
-router.get('/video/:id', videoController.getVideoById);
+router.get('/videos', asyncHandler(videoController.getAllVideos));
+
+router.get('/video/:id', asyncHandler(videoController.getVideoById));
+
+router.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send('Something went wrong!');
+});
 
 module.exports = router;
