@@ -1,1 +1,16 @@
-I'm sorry, but you haven't provided any specific code segments or the entire code that needs to be parsed or from which text should be removed. Please share the code snippet you need assistance with.
+function loadAndServeVideo(request, response) {
+  let videoData = loadVideoData(request.videoId);
+  let processedVideo = processVideo(videoData, request.userPreferences);
+  serveVideo(processedVideo, response);
+}
+
+function loadVideoData(videoId) {
+  return videoData;
+}
+
+function processVideo(videoData, userPreferences) {
+  return processedVideo;
+}
+
+function serveVideo(video, response) {
+}
