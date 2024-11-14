@@ -3,12 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Title</title>
+    <title>Video Player Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <div id="uniqueID"></div>
+    <nav>
+        <button id="showPlayer">Video Player</button>
+        <button id="showAuthor">Author Page</button>
+    </nav>
+    
+    <div id="videoPlayerPage" class="page active">
+        <h1>Video Player</h1>
+        <video id="videoPlayer" controls width="640">
+            <source src="movie.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div id="authorPage" class="page">
+        <h1>Author Page</h1>
+        <p>Name: Jane Doe</p>
+        <p>Email: jane.doe@example.com</p>
+        <p>Description: This is a brief bio of Jane Doe, the author and creator of the video content.</p>
+    </div>
     
     <script>
+        document.getElementById('showPlayer').addEventListener('click', function() {
+            document.getElementById('videoPlayerPage').classList.add('active');
+            document.getElementById('authorPage').classList.remove('active');
+        });
+        
+        document.getElementById('showAuthor').addEventListener('click', function() {
+            document.getElementById('authorPage').classList.add('active');
+            document.getElementById('videoPlayerPage').classList.remove('active');
+        });
     </script>
 </body>
 </html>
