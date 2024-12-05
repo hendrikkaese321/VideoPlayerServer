@@ -1,29 +1,49 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
 header {
-  background-color: #007bff;
+  background-color: #0056b3; /* Updated shade for a deeper blue */
   color: #ffffff;
-  padding: 10px 0;
+  padding: 20px 0;
   text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow for depth */
 }
 
 .form-upload {
   margin: 20px auto;
   padding: 20px;
   max-width: 500px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: none; /* Removed border */
+  background-color: #ffffff;
+  border-radius: 8px; /* Slightly increased border radius for modern look */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Added shadow for soft elevation */
+  transition: transform 0.3s ease; /* Animation for hover */
 }
 
 .form-upload input,
 .form-upload button {
   margin: 10px 0;
   display: block;
-  width: 100%;
+  width: calc(100% - 20px); /* Adjusted width to fix padding issue */
+  font-size: 16px; /* Increased font size for better readability */
+  padding: 10px; /* Added padding for better interaction area */
+}
+
+.form-upload button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth background color change on hover */
+}
+
+.form-upload button:hover {
+  background-color: #0056b3; /* Darker shade on hover for interactivity */
 }
 
 .video-list {
@@ -36,19 +56,30 @@ header {
 .video-list li {
   margin: 10px 0;
   padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  background-color: #ffffff;
+  border: none; /* Removed border */
+  border-radius: 8px; /* Updated border radius for consistency with the upload form */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Consistent shadow effect across elements */
+  transition: transform 0.2s ease-out; /* Subtle hover effect for list items */
+}
+
+.video-list li:hover {
+  transform: translateY(-5px); /* Moving up slightly on hover for interactive feedback */
 }
 
 .video-player {
   margin: 20px auto;
+  padding: 0;
   max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 8px; /* Consistency in styling */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Shadow for depth */
+  overflow: hidden; /* Ensures the video corners align with the container */
 }
 
 .video-player video {
   width: 100%;
-  height: auto;
+  height: auto; /* Maintains aspect ratio without explicitly setting it */
 }
 
 @media screen and (max-width: 768px) {
@@ -56,5 +87,6 @@ header {
   .video-player,
   .video-list {
     max-width: 90%;
+    margin: 20px auto; /* Ensures consistent margin at all sizes */
   }
 }
