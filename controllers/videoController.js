@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const Video = require('./videoModel');
+const express = require('express');
+const router = express.Router();
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).catch(error => console.error("MongoDB connection error: ", error));
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .catch(error => console.error("MongoDB connection error: ", error));
 
 const uploadVideo = async (req, res) => {
   const { title, description, url } = req.body;
@@ -98,26 +101,6 @@ const incrementVideoViews = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-module.exports = {
-  uploadVideo,
-  getAllVideos,
-  getVideoById,
-  updateVideo,
-  deleteVideo,
-  incrementVideoViews,
-};
-
-const express = require('express');
-const router = express.Router();
-const {
-  uploadVideo,
-  getAllVideos,
-  getVideoById,
-  updateVideo,
-  deleteVideo,
-  incrementVideoViews,
-} = require('./yourControllerFile');
 
 router.post('/videos', uploadVideo);
 router.get('/videos', getAllVideos);
