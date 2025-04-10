@@ -58,12 +58,14 @@ const deleteVideo = async (videoId) => {
 
 const setupEventListeners = () => {
     const uploadInput = document.getElementById('upload-input');
-    uploadInput.addEventListener('change', function(event) {
+    const handleFileChange = event => {
         const file = event.target.files[0];
         if (file) {
             uploadVideo(file);
         }
-    });
+    };
+    uploadInput.removeEventListener('change', handleFileChange);
+    uploadInput.addEventListener('change', handleFileChange);
 };
 
 const init = () => {
